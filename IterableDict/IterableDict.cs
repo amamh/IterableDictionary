@@ -13,12 +13,14 @@ namespace IterableDict
         private Dictionary<TKey, TValue> _dict;
         private CustomLList<TKey> _list;
 
-        public IterableDict() {
+        public IterableDict()
+        {
             _dict = new Dictionary<TKey, TValue>();
             _list = new CustomLList<TKey>();
         }
 
-        public void AddOrUpdate(TKey key, TValue value) {
+        public void AddOrUpdate(TKey key, TValue value)
+        {
             if (_dict.ContainsKey(key))
                 _dict[key] = value;
             else
@@ -27,7 +29,7 @@ namespace IterableDict
             _list.AddOrPromote(key);
         }
 
-        public TValue this [TKey key]
+        public TValue this[TKey key]
         {
             get
             {
@@ -47,50 +49,51 @@ namespace IterableDict
         private CustomNode<T> _end;
         private Dictionary<T, CustomNode<T>> _lookup;
 
-		private HashSet<Cursor<T>> _cursorsWaiting;
+        private HashSet<Cursor<T>> _cursorsWaiting;
 
         public CustomLList()
         {
             _lookup = new Dictionary<T, CustomNode<T>>();
             _start = null;
             _end = null;
-			_cursorsWaiting = new HashSet<Cursor<T>> ();
+            _cursorsWaiting = new HashSet<Cursor<T>>();
         }
 
         public Cursor<T> GetCursor()
         {
             // FIXME: handle empty case
             var c = new Cursor<T>(_start, _cursorsWaiting);
-			return c;
+            return c;
         }
 
         public void Add(T value)
         {
-			Add (new CustomNode<T> (value));
+            Add(new CustomNode<T>(value));
         }
 
 
-		public void Add(CustomNode<T> node)
-		{
-			if (_start == null)
-			{
-				Debug.Assert(_end == null);
-				_start = node;
-				_end = _start;
-			}
-			else
-			{
-				foreach (var cursor in _cursorsWaiting) {
-					cursor.SetNext (node);
-				}
+        public void Add(CustomNode<T> node)
+        {
+            if (_start == null)
+            {
+                Debug.Assert(_end == null);
+                _start = node;
+                _end = _start;
+            }
+            else
+            {
+                foreach (var cursor in _cursorsWaiting)
+                {
+                    cursor.SetNext(node);
+                }
 
-				_end.Next = node;
-				node.Prev = _end;
-				_end = node;
-			}
+                _end.Next = node;
+                node.Prev = _end;
+                _end = node;
+            }
             if (!_lookup.ContainsKey(node.Value))
                 _lookup.Add(node.Value, node);
-		}
+        }
 
         public void Promote(T value)
         {
@@ -144,7 +147,7 @@ namespace IterableDict
             next.Prev = prev;
 
             // attach to end
-			Add(node);
+            Add(node);
         }
 
         public void AddOrPromote(T value)
@@ -174,9 +177,11 @@ namespace IterableDict
         private HashSet<Cursor<T>> _cursorsIncoming;
 
         //public List<Cursor<T>> Cursors { get; set; }
-        public HashSet<Cursor<T>> CursorsIncoming { get
+        public HashSet<Cursor<T>> CursorsIncoming
+        {
+            get
             {
-                    return _cursorsIncoming;
+                return _cursorsIncoming;
             }
         }
 
@@ -190,29 +195,30 @@ namespace IterableDict
 
     public class Cursor<T>
     {
-		CustomNode<T> _node = null;
-		public CustomNode<T> _next = null;
-		HashSet<Cursor<T>> _waitingList;
+        CustomNode<T> _node = null;
+        public CustomNode<T> _next = null;
+        HashSet<Cursor<T>> _waitingList;
 
-		public Cursor(CustomNode<T> node, HashSet<Cursor<T>> waitingList)
+        public Cursor(CustomNode<T> node, HashSet<Cursor<T>> waitingList)
         {
             _node = null;
-			_waitingList = waitingList;
+            _waitingList = waitingList;
 
-			SetNext (node);
+            SetNext(node);
         }
 
         // TODO restrict access
         public void SetNext(CustomNode<T> next)
         {
             // remove from old CursorsIncoming
-			if (_next != null) {
+            if (_next != null)
+            {
                 lock (_next.CursorsIncoming)
                 {
                     Debug.Assert(_next.CursorsIncoming.Contains(this));
                     _next.CursorsIncoming.Remove(this);
                 }
-			}
+            }
 
             // Add to new CursorsIncoming
             if (next != null)
@@ -224,12 +230,12 @@ namespace IterableDict
             }
 
             // Cursor is now waiting for more
-			if (next == null && !_waitingList.Contains (this))
-				_waitingList.Add (this);
+            if (next == null && !_waitingList.Contains(this))
+                _waitingList.Add(this);
 
             // Cursor was waiting and now has something to read
-			if (next != null && _waitingList.Contains (this))
-				_waitingList.Remove (this);
+            if (next != null && _waitingList.Contains(this))
+                _waitingList.Remove(this);
 
             _next = next;
         }

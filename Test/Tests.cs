@@ -26,7 +26,7 @@ namespace Test
             var cursor1 = _dict.GetCursor();
 
             var cursor1Read = new Dictionary<int, int>();
-            CustomNode<int> curr;
+            IterableLinkedListNode<int> curr;
 
             // read
             Assert.IsTrue(cursor1.MoveNext(), "Couldn't read next");
@@ -76,7 +76,7 @@ namespace Test
             var cursor1 = _dict.GetCursor();
 
             var cursor1Read = new Dictionary<int, int>();
-            CustomNode<int> curr;
+            IterableLinkedListNode<int> curr;
 
             // read
             Assert.IsTrue(cursor1.MoveNext(), "Couldn't read next");
@@ -126,7 +126,7 @@ namespace Test
             var cursor1 = _dict.GetCursor();
 
             var cursor1Read = new Dictionary<int, int>();
-            CustomNode<int> curr;
+            IterableLinkedListNode<int> curr;
 
             // read
             Assert.IsTrue(cursor1.MoveNext(), "Couldn't read next");
@@ -182,7 +182,7 @@ namespace Test
             var cursor1 = _dict.GetCursor();
 
             var cursor1Read = new Dictionary<int, int>();
-            CustomNode<int> curr;
+            IterableLinkedListNode<int> curr;
 
             // read
             Assert.IsTrue(cursor1.MoveNext(), "Couldn't read next");
@@ -242,7 +242,7 @@ namespace Test
             var cursor1 = _dict.GetCursor();
 
             var cursor1Read = new Dictionary<int, int>();
-            CustomNode<int> curr;
+            IterableLinkedListNode<int> curr;
 
             // read
             Assert.IsTrue(cursor1.MoveNext(), "Couldn't read next");

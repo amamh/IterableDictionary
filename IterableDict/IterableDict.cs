@@ -11,12 +11,12 @@ namespace IterableDict
     public class IterableDict<TKey, TValue>
     {
         private Dictionary<TKey, TValue> _dict;
-        private CustomLList<TKey> _list;
+        private IterableLinkedList<TKey> _list;
 
         public IterableDict()
         {
             _dict = new Dictionary<TKey, TValue>();
-            _list = new CustomLList<TKey>();
+            _list = new IterableLinkedList<TKey>();
         }
 
         public void AddOrUpdate(TKey key, TValue value)
@@ -37,41 +37,40 @@ namespace IterableDict
             }
         }
 
-        public Cursor<TKey> GetCursor()
+        public IterableLinkedListCursor<TKey> GetCursor()
         {
             return _list.GetCursor();
         }
     }
 
-    public class CustomLList<T>
+    public class IterableLinkedList<T>
     {
-        private CustomNode<T> _start;
-        private CustomNode<T> _end;
-        private Dictionary<T, CustomNode<T>> _lookup;
+        private IterableLinkedListNode<T> _start;
+        private IterableLinkedListNode<T> _end;
+        private Dictionary<T, IterableLinkedListNode<T>> _lookup;
 
-        private HashSet<Cursor<T>> _cursorsWaiting;
+        private HashSet<IterableLinkedListCursor<T>> _cursorsWaiting;
 
-        public CustomLList()
+        public IterableLinkedList()
         {
-            _lookup = new Dictionary<T, CustomNode<T>>();
+            _lookup = new Dictionary<T, IterableLinkedListNode<T>>();
             _start = null;
             _end = null;
-            _cursorsWaiting = new HashSet<Cursor<T>>();
+            _cursorsWaiting = new HashSet<IterableLinkedListCursor<T>>();
         }
 
-        public Cursor<T> GetCursor()
+        public IterableLinkedListCursor<T> GetCursor()
         {
-            var c = new Cursor<T>(_start, _cursorsWaiting);
+            var c = new IterableLinkedListCursor<T>(_start, _cursorsWaiting);
             return c;
         }
 
         public void Add(T value)
         {
-            Add(new CustomNode<T>(value));
+            Add(new IterableLinkedListNode<T>(value));
         }
 
-
-        public void Add(CustomNode<T> node)
+        public void Add(IterableLinkedListNode<T> node)
         {
             if (_start == null)
             {
@@ -94,6 +93,10 @@ namespace IterableDict
                 _lookup.Add(node.Value, node);
         }
 
+        /// <summary>
+        /// Move to the end of the list
+        /// </summary>
+        /// <param name="value"></param>
         public void Promote(T value)
         {
             if (_lookup.ContainsKey(value))
@@ -102,7 +105,10 @@ namespace IterableDict
                 throw new ArgumentOutOfRangeException();
         }
 
-        public void Promote(CustomNode<T> node)
+        /// <summary>
+        /// Move to the end of the list
+        /// </summary>
+        public void Promote(IterableLinkedListNode<T> node)
         {
             if (node == null)
                 throw new ArgumentNullException();
@@ -149,6 +155,9 @@ namespace IterableDict
             Add(node);
         }
 
+        /// <summary>
+        /// Add or move to the end of the list
+        /// </summary>
         public void AddOrPromote(T value)
         {
             if (_lookup.ContainsKey(value))
@@ -163,20 +172,20 @@ namespace IterableDict
     /// be the current next node even if the current next gets changed to something else
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class CustomNode<T>
+    public class IterableLinkedListNode<T>
     {
         public T Value { get; private set; }
-        public CustomNode<T> Prev { get; set; }
+        public IterableLinkedListNode<T> Prev { get; set; }
 
-        public CustomNode<T> Next
+        public IterableLinkedListNode<T> Next
         {
             get; set;
         }
 
-        private HashSet<Cursor<T>> _cursorsIncoming;
+        private HashSet<IterableLinkedListCursor<T>> _cursorsIncoming;
 
         //public List<Cursor<T>> Cursors { get; set; }
-        public HashSet<Cursor<T>> CursorsIncoming
+        public HashSet<IterableLinkedListCursor<T>> CursorsIncoming
         {
             get
             {
@@ -185,20 +194,20 @@ namespace IterableDict
         }
 
 
-        public CustomNode(T value)
+        public IterableLinkedListNode(T value)
         {
             Value = value;
-            _cursorsIncoming = new HashSet<Cursor<T>>();
+            _cursorsIncoming = new HashSet<IterableLinkedListCursor<T>>();
         }
     }
 
-    public class Cursor<T>
+    public class IterableLinkedListCursor<T>
     {
-        CustomNode<T> _node = null;
-        internal CustomNode<T> _next = null;
-        HashSet<Cursor<T>> _waitingList;
+        IterableLinkedListNode<T> _node = null;
+        internal IterableLinkedListNode<T> _next = null;
+        HashSet<IterableLinkedListCursor<T>> _waitingList;
 
-        public Cursor(CustomNode<T> node, HashSet<Cursor<T>> waitingList)
+        public IterableLinkedListCursor(IterableLinkedListNode<T> node, HashSet<IterableLinkedListCursor<T>> waitingList)
         {
             _node = null;
             _waitingList = waitingList;
@@ -206,7 +215,7 @@ namespace IterableDict
             SetNext(node);
         }
 
-        internal void SetNext(CustomNode<T> next)
+        internal void SetNext(IterableLinkedListNode<T> next)
         {
             // remove from old CursorsIncoming
             if (_next != null)
@@ -252,7 +261,7 @@ namespace IterableDict
             return true;
         }
 
-        public CustomNode<T> GetCurrent()
+        public IterableLinkedListNode<T> GetCurrent()
         {
             return _node;
         }

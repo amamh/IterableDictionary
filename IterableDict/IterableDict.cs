@@ -61,7 +61,6 @@ namespace IterableDict
 
         public Cursor<T> GetCursor()
         {
-            // FIXME: handle empty case
             var c = new Cursor<T>(_start, _cursorsWaiting);
             return c;
         }
@@ -196,7 +195,7 @@ namespace IterableDict
     public class Cursor<T>
     {
         CustomNode<T> _node = null;
-        public CustomNode<T> _next = null;
+        internal CustomNode<T> _next = null;
         HashSet<Cursor<T>> _waitingList;
 
         public Cursor(CustomNode<T> node, HashSet<Cursor<T>> waitingList)
@@ -207,8 +206,7 @@ namespace IterableDict
             SetNext(node);
         }
 
-        // TODO restrict access
-        public void SetNext(CustomNode<T> next)
+        internal void SetNext(CustomNode<T> next)
         {
             // remove from old CursorsIncoming
             if (_next != null)

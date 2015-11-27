@@ -13,7 +13,7 @@ namespace IterableDict
         static int len = 10;
         static void Main(string[] args)
         {
-			_db = new IterableDict<int, int> ();
+            _db = new IterableDict<int, int> ();
             for (int i = 0; i < len; i++)
             {
 				_db.AddOrUpdate(i, i);

@@ -116,8 +116,15 @@ namespace IterableDict
             if (!_lookup.ContainsKey(value))
                 throw new ArgumentOutOfRangeException();
 
-            if (_end == node) // nothing to do
+            if (_end == node) // tell all cursors to read this again
+            {
+                foreach (var curosr in _cursorsWaiting)
+                {
+                    node.CursorsIncoming.Add(curosr);
+                    curosr._next = node;
+                }
                 return;
+            }
 
             Debug.Assert(node.Next != null); // since we exclude last nodes
 

@@ -293,6 +293,49 @@ namespace Test
                 Assert.AreEqual(cursor2Read[pair.Key], pair.Value);
             }
         }
+
+        [TestMethod]
+        public void TestModifyLastNodeThenCursorShouldReReadIt()
+        {
+            var cursor1 = _dict.GetCursor();
+
+            var cursor1Read = new Dictionary<int, int>();
+            IterableLinkedListNode<int> curr;
+
+            // read the rest
+            while (cursor1.MoveNext())
+            {
+                curr = cursor1.GetCurrent();
+                Assert.IsNotNull(curr?.Value);
+                cursor1Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
+            }
+
+            // update last node
+            _dict.AddOrUpdate(9, _dict[2] * 2);
+
+            // read again:
+            Assert.IsTrue(cursor1.MoveNext(), "Couldn't read next");
+            curr = cursor1.GetCurrent();
+            Assert.IsNotNull(curr?.Value);
+            cursor1Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
+
+            // read from beginning with a new cursor
+            var cursor2 = _dict.GetCursor();
+            var cursor2Read = new Dictionary<int, int>();
+            while (cursor2.MoveNext())
+            {
+                curr = cursor2.GetCurrent();
+                Assert.IsNotNull(curr?.Value);
+                cursor2Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
+            }
+
+            // Check we got the same
+            foreach (var pair in cursor1Read)
+            {
+                Assert.IsTrue(cursor2Read.ContainsKey(pair.Key));
+                Assert.AreEqual(cursor2Read[pair.Key], pair.Value);
+            }
+        }
     }
 
     static class Extend

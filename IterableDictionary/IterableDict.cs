@@ -9,6 +9,8 @@ namespace IterableDictionary
 {
     public class IterableDict<TKey, TValue>
     {
+        public int Size => _dict.Count;
+
         private Dictionary<TKey, TValue> _dict;
         private IterableLinkedList<TKey> _list;
 

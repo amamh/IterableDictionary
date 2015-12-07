@@ -132,19 +132,13 @@ namespace IterableDict
             var next = node.Next;
             var last = _end;
 
-            lock (node.CursorsIncoming)
+            // fix cursors
+            foreach (var cursor in node.CursorsIncoming)
             {
-                lock (node.Next.CursorsIncoming)
-                {
-                    // fix cursors
-                    foreach (var cursor in node.CursorsIncoming)
-                    {
-                        node.Next.CursorsIncoming.Add(cursor);
-                        cursor._next = node.Next;
-                    }
-                }
-                node.CursorsIncoming.Clear();
+                node.Next.CursorsIncoming.Add(cursor);
+                cursor._next = node.Next;
             }
+            node.CursorsIncoming.Clear();
 
             // take out
             node.Next = null;
@@ -227,20 +221,14 @@ namespace IterableDict
             // remove from old CursorsIncoming
             if (_next != null)
             {
-                lock (_next.CursorsIncoming)
-                {
-                    Debug.Assert(_next.CursorsIncoming.Contains(this));
-                    _next.CursorsIncoming.Remove(this);
-                }
+                Debug.Assert(_next.CursorsIncoming.Contains(this));
+                _next.CursorsIncoming.Remove(this);
             }
 
             // Add to new CursorsIncoming
             if (next != null)
             {
-                lock (next.CursorsIncoming)
-                {
-                    next.CursorsIncoming.Add(this);
-                }
+                next.CursorsIncoming.Add(this);
             }
 
             // Cursor is now waiting for more

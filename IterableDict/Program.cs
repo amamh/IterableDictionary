@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using StackExchange.Redis;
 
-namespace IterableDict
+namespace IterableDictionary
 {
     class Program
     {
@@ -54,7 +54,7 @@ namespace IterableDict
                     Task.Delay(1000).Wait();
                     continue;
                 }
-                var item = cursor.GetCurrent();
+                var item = cursor.GetCurrentNode();
                 Console.WriteLine($"{item.Value}");
                 Task.Delay(500).Wait();
             }

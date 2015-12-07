@@ -5,9 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IterableDict
+namespace IterableDictionary
 {
-
     public class IterableDict<TKey, TValue>
     {
         private Dictionary<TKey, TValue> _dict;
@@ -256,9 +255,17 @@ namespace IterableDict
             return true;
         }
 
-        public IterableLinkedListNode<T> GetCurrent()
+        public IterableLinkedListNode<T> GetCurrentNode()
         {
             return _node;
+        }
+
+        public T GetCurrent()
+        {
+            var node = GetCurrentNode();
+            if (node == null)
+                throw new NullReferenceException("Current node is null. Code must be broken, it should never be null.");
+            return node.Value;
         }
     }
 }

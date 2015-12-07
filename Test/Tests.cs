@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 //using NUnit.Framework;
-using IterableDict;
+using IterableDictionary;
 using System.Collections.Generic;
 
 namespace Test
@@ -30,13 +30,13 @@ namespace Test
 
             // read
             Assert.IsTrue(cursor1.MoveNext(), "Couldn't read next");
-            curr = cursor1.GetCurrent();
+            curr = cursor1.GetCurrentNode();
             Assert.IsNotNull(curr?.Value);
             cursor1Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
 
             // read
             Assert.IsTrue(cursor1.MoveNext(), "Couldn't read next");
-            curr = cursor1.GetCurrent();
+            curr = cursor1.GetCurrentNode();
             Assert.IsNotNull(curr?.Value);
             cursor1Read.Add(curr.Value, _dict[curr.Value]);
 
@@ -47,7 +47,7 @@ namespace Test
             // read the rest
             while (cursor1.MoveNext())
             {
-                curr = cursor1.GetCurrent();
+                curr = cursor1.GetCurrentNode();
                 Assert.IsNotNull(curr?.Value);
                 cursor1Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
             }
@@ -57,7 +57,7 @@ namespace Test
             var cursor2Read = new Dictionary<int, int>();
             while (cursor2.MoveNext())
             {
-                curr = cursor2.GetCurrent();
+                curr = cursor2.GetCurrentNode();
                 Assert.IsNotNull(curr?.Value);
                 cursor2Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
             }
@@ -80,13 +80,13 @@ namespace Test
 
             // read
             Assert.IsTrue(cursor1.MoveNext(), "Couldn't read next");
-            curr = cursor1.GetCurrent();
+            curr = cursor1.GetCurrentNode();
             Assert.IsNotNull(curr?.Value);
             cursor1Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
 
             // read
             Assert.IsTrue(cursor1.MoveNext(), "Couldn't read next");
-            curr = cursor1.GetCurrent();
+            curr = cursor1.GetCurrentNode();
             Assert.IsNotNull(curr?.Value);
             cursor1Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
 
@@ -97,7 +97,7 @@ namespace Test
             // read the rest
             while (cursor1.MoveNext())
             {
-                curr = cursor1.GetCurrent();
+                curr = cursor1.GetCurrentNode();
                 Assert.IsNotNull(curr?.Value);
                 cursor1Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
             }
@@ -107,7 +107,7 @@ namespace Test
             var cursor2Read = new Dictionary<int, int>();
             while (cursor2.MoveNext())
             {
-                curr = cursor2.GetCurrent();
+                curr = cursor2.GetCurrentNode();
                 Assert.IsNotNull(curr?.Value);
                 cursor2Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
             }
@@ -130,19 +130,19 @@ namespace Test
 
             // read
             Assert.IsTrue(cursor1.MoveNext(), "Couldn't read next");
-            curr = cursor1.GetCurrent();
+            curr = cursor1.GetCurrentNode();
             Assert.IsNotNull(curr?.Value);
             cursor1Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
 
             // read
             Assert.IsTrue(cursor1.MoveNext(), "Couldn't read next");
-            curr = cursor1.GetCurrent();
+            curr = cursor1.GetCurrentNode();
             Assert.IsNotNull(curr?.Value);
             cursor1Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
 
             // read
             Assert.IsTrue(cursor1.MoveNext(), "Couldn't read next");
-            curr = cursor1.GetCurrent();
+            curr = cursor1.GetCurrentNode();
             Assert.IsNotNull(curr?.Value);
             cursor1Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
 
@@ -153,7 +153,7 @@ namespace Test
             // read the rest
             while (cursor1.MoveNext())
             {
-                curr = cursor1.GetCurrent();
+                curr = cursor1.GetCurrentNode();
                 Assert.IsNotNull(curr?.Value);
                 cursor1Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
             }
@@ -163,7 +163,7 @@ namespace Test
             var cursor2Read = new Dictionary<int, int>();
             while (cursor2.MoveNext())
             {
-                curr = cursor2.GetCurrent();
+                curr = cursor2.GetCurrentNode();
                 Assert.IsNotNull(curr?.Value);
                 cursor2Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
             }
@@ -186,19 +186,19 @@ namespace Test
 
             // read
             Assert.IsTrue(cursor1.MoveNext(), "Couldn't read next");
-            curr = cursor1.GetCurrent();
+            curr = cursor1.GetCurrentNode();
             Assert.IsNotNull(curr?.Value);
             cursor1Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
 
             // read
             Assert.IsTrue(cursor1.MoveNext(), "Couldn't read next");
-            curr = cursor1.GetCurrent();
+            curr = cursor1.GetCurrentNode();
             Assert.IsNotNull(curr?.Value);
             cursor1Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
 
             // read
             Assert.IsTrue(cursor1.MoveNext(), "Couldn't read next");
-            curr = cursor1.GetCurrent();
+            curr = cursor1.GetCurrentNode();
             Assert.IsNotNull(curr?.Value);
             cursor1Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
 
@@ -213,7 +213,7 @@ namespace Test
             // read the rest
             while (cursor1.MoveNext())
             {
-                curr = cursor1.GetCurrent();
+                curr = cursor1.GetCurrentNode();
                 Assert.IsNotNull(curr?.Value);
                 cursor1Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
             }
@@ -223,7 +223,7 @@ namespace Test
             var cursor2Read = new Dictionary<int, int>();
             while (cursor2.MoveNext())
             {
-                curr = cursor2.GetCurrent();
+                curr = cursor2.GetCurrentNode();
                 Assert.IsNotNull(curr?.Value);
                 cursor2Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
             }
@@ -246,19 +246,19 @@ namespace Test
 
             // read
             Assert.IsTrue(cursor1.MoveNext(), "Couldn't read next");
-            curr = cursor1.GetCurrent();
+            curr = cursor1.GetCurrentNode();
             Assert.IsNotNull(curr?.Value);
             cursor1Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
 
             // read
             Assert.IsTrue(cursor1.MoveNext(), "Couldn't read next");
-            curr = cursor1.GetCurrent();
+            curr = cursor1.GetCurrentNode();
             Assert.IsNotNull(curr?.Value);
             cursor1Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
 
             // read
             Assert.IsTrue(cursor1.MoveNext(), "Couldn't read next");
-            curr = cursor1.GetCurrent();
+            curr = cursor1.GetCurrentNode();
             Assert.IsNotNull(curr?.Value);
             cursor1Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
 
@@ -271,7 +271,7 @@ namespace Test
             // read the rest
             while (cursor1.MoveNext())
             {
-                curr = cursor1.GetCurrent();
+                curr = cursor1.GetCurrentNode();
                 Assert.IsNotNull(curr?.Value);
                 cursor1Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
             }
@@ -281,7 +281,7 @@ namespace Test
             var cursor2Read = new Dictionary<int, int>();
             while (cursor2.MoveNext())
             {
-                curr = cursor2.GetCurrent();
+                curr = cursor2.GetCurrentNode();
                 Assert.IsNotNull(curr?.Value);
                 cursor2Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
             }
@@ -305,7 +305,7 @@ namespace Test
             // read the rest
             while (cursor1.MoveNext())
             {
-                curr = cursor1.GetCurrent();
+                curr = cursor1.GetCurrentNode();
                 Assert.IsNotNull(curr?.Value);
                 cursor1Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
             }
@@ -315,7 +315,7 @@ namespace Test
 
             // read again:
             Assert.IsTrue(cursor1.MoveNext(), "Couldn't read next");
-            curr = cursor1.GetCurrent();
+            curr = cursor1.GetCurrentNode();
             Assert.IsNotNull(curr?.Value);
             cursor1Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
 
@@ -324,7 +324,7 @@ namespace Test
             var cursor2Read = new Dictionary<int, int>();
             while (cursor2.MoveNext())
             {
-                curr = cursor2.GetCurrent();
+                curr = cursor2.GetCurrentNode();
                 Assert.IsNotNull(curr?.Value);
                 cursor2Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
             }

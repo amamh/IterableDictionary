@@ -54,8 +54,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IterableDict\IterableDictionary.csproj">
-      <Project>{5f5b8b88-d8a0-426e-b61e-5a5b2395c92a}</Project>
+    <ProjectReference Include="..\IterableDictionary\IterableDictionary.csproj">
+      <Project>{a62baef1-4def-4e6e-a766-cae50e8cc31c}</Project>
       <Name>IterableDictionary</Name>
     </ProjectReference>
   </ItemGroup>

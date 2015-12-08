@@ -83,7 +83,8 @@ namespace IterableDictionary
             {
                 foreach (var cursor in _cursorsWaiting)
                 {
-                    cursor.SetNext(node);
+                    node.CursorsIncoming.Add(cursor);
+                    cursor._next = node;
                 }
 
                 _end.Next = node;

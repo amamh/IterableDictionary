@@ -295,14 +295,14 @@ namespace Test
         }
 
         [TestMethod]
-        public void TestModifyLastNodeThenCursorShouldReReadIt()
+        public void TestReadAllThenModifyLastNode()
         {
             var cursor1 = _dict.GetCursor();
 
             var cursor1Read = new Dictionary<int, int>();
             IterableLinkedListNode<int> curr;
 
-            // read the rest
+            // read all
             while (cursor1.MoveNext())
             {
                 curr = cursor1.GetCurrentNode();
@@ -334,6 +334,93 @@ namespace Test
             {
                 Assert.IsTrue(cursor2Read.ContainsKey(pair.Key));
                 Assert.AreEqual(cursor2Read[pair.Key], pair.Value);
+            }
+        }
+
+        [TestMethod]
+        public void TestReadAddRead()
+        {
+            var cursor1 = _dict.GetCursor();
+
+            var cursor1Read = new Dictionary<int, int>();
+            IterableLinkedListNode<int> curr;
+
+            // read all
+            while (cursor1.MoveNext())
+            {
+                curr = cursor1.GetCurrentNode();
+                Assert.IsNotNull(curr?.Value);
+                cursor1Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
+            }
+
+            // Add more
+            for (int i = 0; i < 10; i++)
+            {
+                var index = 10 + i;
+                _dict.AddOrUpdate(index, index * 10);
+            }
+
+            // read rest
+            while (cursor1.MoveNext())
+            {
+                curr = cursor1.GetCurrentNode();
+                Assert.IsNotNull(curr?.Value);
+                cursor1Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
+            }
+
+            // read from beginning with a new cursor
+            var cursor2 = _dict.GetCursor();
+            var cursor2Read = new Dictionary<int, int>();
+            while (cursor2.MoveNext())
+            {
+                curr = cursor2.GetCurrentNode();
+                Assert.IsNotNull(curr?.Value);
+                cursor2Read.AddOrUpdate(curr.Value, _dict[curr.Value]);
+            }
+
+            // Check we got the same
+            foreach (var pair in cursor1Read)
+            {
+                Assert.IsTrue(cursor2Read.ContainsKey(pair.Key));
+                Assert.AreEqual(cursor2Read[pair.Key], pair.Value);
+            }
+        }
+
+
+        [TestMethod]
+        public void TestCreateFromExistingDict()
+        {
+            // create new normal dict
+            var internalDict = new Dictionary<int, int>();
+            // copy the iterable one into it
+            var cursor = _dict.GetCursor();
+            int i = 0;
+            while (cursor.MoveNext())
+            {
+                var v = cursor.GetCurrent();
+                internalDict.AddOrUpdate(i, v);
+                i++;
+            }
+
+            // create a new iterable from the normal dict
+            var dict = new IterableDict<int, int>(internalDict);
+
+            // read all from the new iterable
+            var cursor1 = dict.GetCursor();
+            var cursor1Read = new Dictionary<int, int>();
+            IterableLinkedListNode<int> curr;
+            while (cursor1.MoveNext())
+            {
+                curr = cursor1.GetCurrentNode();
+                Assert.IsNotNull(curr?.Value);
+                cursor1Read.AddOrUpdate(curr.Value, dict[curr.Value]);
+            }
+
+            // Check that we read the same from the new iterable as the normal dict
+            foreach (var pair in internalDict)
+            {
+                Assert.IsTrue(cursor1Read.ContainsKey(pair.Key));
+                Assert.AreEqual(cursor1Read[pair.Key], pair.Value);
             }
         }
     }

@@ -11,21 +11,28 @@ namespace IterableDictionary
     {
         public int Size => _dict.Count;
 
-        private ISimpleDictionary<TKey, TValue> _dict;
+        private IDictionary<TKey, TValue> _dict;
         private IterableLinkedList<TKey> _list;
 
         /// <summary>
-        /// This will use a normal C# dictionary
+        /// This will use a new normal C# dictionary
         /// </summary>
-        public IterableDict() : this(new MemorySimpleDictionary<TKey, TValue>()) { }
+        public IterableDict() : this(new Dictionary<TKey, TValue>()) { }
 
-        public IterableDict(ISimpleDictionary<TKey, TValue> sourceDict)
+        /// <summary>
+        /// The given IDictionary must implement methods/props: Add, [], Count, Keys, ContainsKey
+        /// </summary>
+        /// <param name="sourceDict"></param>
+        public IterableDict(IDictionary<TKey, TValue> sourceDict)
         {
             if (sourceDict == null)
                 throw new ArgumentNullException(nameof(sourceDict));
 
             _dict = sourceDict;
             _list = new IterableLinkedList<TKey>();
+
+            foreach (var key in _dict.Keys)
+                _list.Add(key);
         }
 
         public void AddOrUpdate(TKey key, TValue value)

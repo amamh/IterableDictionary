@@ -1,26 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IterableDictionary
 {
     /// <summary>
-    /// A linked list implementation that provides a cursor to iterate
-    /// The purpose is to give an ordered list of items that the cursor can go through
-    /// The order can change without messing up the curosr but we can only move nodes to the end of the list "promote".
+    ///     A linked list implementation that provides a cursor to iterate
+    ///     The purpose is to give an ordered list of items that the cursor can go through
+    ///     The order can change without messing up the curosr but we can only move nodes to the end of the list "promote".
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class IterableLinkedList<T>
     {
-        private IterableLinkedListNode<T> _start;
+        private readonly HashSet<IterableLinkedListCursor<T>> _cursorsWaiting;
         private IterableLinkedListNode<T> _end;
         // THis is used to have O(1) access to the list nodes
-        private Dictionary<T, IterableLinkedListNode<T>> _lookup;
-
-        private HashSet<IterableLinkedListCursor<T>> _cursorsWaiting;
+        private readonly Dictionary<T, IterableLinkedListNode<T>> _lookup;
+        private IterableLinkedListNode<T> _start;
 
         public IterableLinkedList()
         {
@@ -35,8 +31,9 @@ namespace IterableDictionary
             var c = new IterableLinkedListCursor<T>(_start, _cursorsWaiting);
             return c;
         }
+
         /// <summary>
-        /// Add or promote if existing
+        ///     Add or promote if existing
         /// </summary>
         public void AddOrPromote(T value)
         {
@@ -76,7 +73,8 @@ namespace IterableDictionary
         }
 
         /// <summary>
-        /// Move to the end of the list. This means this node will get picked by all cursors, including the ones who read it before
+        ///     Move to the end of the list. This means this node will get picked by all cursors, including the ones who read it
+        ///     before
         /// </summary>
         /// <param name="value"></param>
         public void Promote(T value)
@@ -88,7 +86,8 @@ namespace IterableDictionary
         }
 
         /// <summary>
-        /// Move to the end of the list. This means this node will get picked by all cursors, including the ones who read it before
+        ///     Move to the end of the list. This means this node will get picked by all cursors, including the ones who read it
+        ///     before
         /// </summary>
         public void Promote(IterableLinkedListNode<T> node)
         {
@@ -140,44 +139,32 @@ namespace IterableDictionary
     }
 
     /// <summary>
-    /// A linked list node that maintains a list of cursors and makes sure their next node to read will
-    /// be the current next node even if the current next gets changed to something else
+    ///     A linked list node that maintains a list of cursors and makes sure their next node to read will
+    ///     be the current next node even if the current next gets changed to something else
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class IterableLinkedListNode<T>
     {
-        public T Value { get; private set; }
-        public IterableLinkedListNode<T> Prev { get; set; }
-
-        public IterableLinkedListNode<T> Next
-        {
-            get; set;
-        }
-
-        private HashSet<IterableLinkedListCursor<T>> _cursorsIncoming;
-
-        //public List<Cursor<T>> Cursors { get; set; }
-        public HashSet<IterableLinkedListCursor<T>> CursorsIncoming
-        {
-            get
-            {
-                return _cursorsIncoming;
-            }
-        }
-
-
         public IterableLinkedListNode(T value)
         {
             Value = value;
-            _cursorsIncoming = new HashSet<IterableLinkedListCursor<T>>();
+            CursorsIncoming = new HashSet<IterableLinkedListCursor<T>>();
         }
+
+        public T Value { get; }
+        public IterableLinkedListNode<T> Prev { get; set; }
+
+        public IterableLinkedListNode<T> Next { get; set; }
+
+        //public List<Cursor<T>> Cursors { get; set; }
+        public HashSet<IterableLinkedListCursor<T>> CursorsIncoming { get; }
     }
 
     public class IterableLinkedListCursor<T>
     {
-        IterableLinkedListNode<T> _node = null;
-        internal IterableLinkedListNode<T> _next = null;
-        HashSet<IterableLinkedListCursor<T>> _waitingList;
+        internal IterableLinkedListNode<T> _next;
+        private IterableLinkedListNode<T> _node;
+        private readonly HashSet<IterableLinkedListCursor<T>> _waitingList;
 
         public IterableLinkedListCursor(IterableLinkedListNode<T> node, HashSet<IterableLinkedListCursor<T>> waitingList)
         {
@@ -187,7 +174,7 @@ namespace IterableDictionary
             SetNext(node);
         }
 
-        internal void SetNext(IterableLinkedListNode<T> next)
+        private void SetNext(IterableLinkedListNode<T> next)
         {
             // remove from old CursorsIncoming
             if (_next != null)
@@ -214,7 +201,7 @@ namespace IterableDictionary
         }
 
         /// <summary>
-        /// Must call this first before GetCurrent
+        ///     Must call this first before GetCurrent
         /// </summary>
         /// <returns></returns>
         public bool MoveNext()

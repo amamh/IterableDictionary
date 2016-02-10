@@ -7,11 +7,11 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly: AssemblyTitle("IterableDictionary")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A dictionary that allows readers to iterate over it ensuring that they get updated values even if a write happens to a pair they have already read.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("A.M. Hassan")]
 [assembly: AssemblyProduct("IterableDictionary")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2015")]
+[assembly: AssemblyCopyright("Copyright © A.M. Hassan 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

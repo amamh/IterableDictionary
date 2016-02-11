@@ -21,7 +21,7 @@ namespace Test
         }
 
         [TestMethod]
-        public void TestModifyNextNode()
+        public void ModifyNextNode()
         {
             var cursor1 = _dict.GetCursor();
 
@@ -71,7 +71,7 @@ namespace Test
         }
 
         [TestMethod]
-        public void TestModifyCurrentNode()
+        public void ModifyCurrentNode()
         {
             var cursor1 = _dict.GetCursor();
 
@@ -121,7 +121,7 @@ namespace Test
         }
 
         [TestMethod]
-        public void TestModifyAlreadyReadNodes()
+        public void ModifyAlreadyReadNodes()
         {
             var cursor1 = _dict.GetCursor();
 
@@ -177,7 +177,7 @@ namespace Test
         }
 
         [TestMethod]
-        public void TestModifyNextCurrentAndPreviousNodes()
+        public void ModifyNextCurrentAndPreviousNodes()
         {
             var cursor1 = _dict.GetCursor();
 
@@ -237,7 +237,7 @@ namespace Test
         }
 
         [TestMethod]
-        public void TestModifyAll()
+        public void ModifyAll()
         {
             var cursor1 = _dict.GetCursor();
 
@@ -295,7 +295,7 @@ namespace Test
         }
 
         [TestMethod]
-        public void TestReadAllThenModifyLastNode()
+        public void ReadAllThenModifyLastNode()
         {
             var cursor1 = _dict.GetCursor();
 
@@ -338,7 +338,7 @@ namespace Test
         }
 
         [TestMethod]
-        public void TestReadAddRead()
+        public void ReadAddRead()
         {
             var cursor1 = _dict.GetCursor();
 
@@ -388,7 +388,7 @@ namespace Test
 
 
         [TestMethod]
-        public void TestCreateFromExistingDict()
+        public void CreateFromExistingDict()
         {
             // create new normal dict
             var internalDict = new Dictionary<int, int>();

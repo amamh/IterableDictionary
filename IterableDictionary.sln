@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IterableDictionaryConsole", "IterableDict\IterableDictionaryConsole.csproj", "{5F5B8B88-D8A0-426E-B61E-5A5B2395C92A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{47C8118B-E808-43D2-A040-EE93A5FE893D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IterableDictionary", "IterableDictionary\IterableDictionary.csproj", "{A62BAEF1-4DEF-4E6E-A766-CAE50E8CC31C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IterableDictionaryConsole", "ConsoleTest\IterableDictionaryConsole.csproj", "{5F5B8B88-D8A0-426E-B61E-5A5B2395C92A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5F5B8B88-D8A0-426E-B61E-5A5B2395C92A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F5B8B88-D8A0-426E-B61E-5A5B2395C92A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F5B8B88-D8A0-426E-B61E-5A5B2395C92A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F5B8B88-D8A0-426E-B61E-5A5B2395C92A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{47C8118B-E808-43D2-A040-EE93A5FE893D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{47C8118B-E808-43D2-A040-EE93A5FE893D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47C8118B-E808-43D2-A040-EE93A5FE893D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +23,10 @@ Global
 		{A62BAEF1-4DEF-4E6E-A766-CAE50E8CC31C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A62BAEF1-4DEF-4E6E-A766-CAE50E8CC31C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A62BAEF1-4DEF-4E6E-A766-CAE50E8CC31C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F5B8B88-D8A0-426E-B61E-5A5B2395C92A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F5B8B88-D8A0-426E-B61E-5A5B2395C92A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F5B8B88-D8A0-426E-B61E-5A5B2395C92A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F5B8B88-D8A0-426E-B61E-5A5B2395C92A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
